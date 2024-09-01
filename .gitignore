@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build
+build/
+dist/
+
+# Cloudinary cache
+.cloudinary/
+
+# Prisma
+.prisma/
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
