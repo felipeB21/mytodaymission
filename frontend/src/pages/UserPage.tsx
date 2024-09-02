@@ -13,6 +13,16 @@ export default function UserPage() {
     }
   }, [username, findUser]);
 
+  useEffect(() => {
+    if (viewedUser?.username) {
+      document.title = `${viewedUser.username} - MyTodayMission`;
+    } else if (username) {
+      document.title = `${username} - MyTodayMission`;
+    } else {
+      document.title = "User Profile - MyTodayMission";
+    }
+  }, [viewedUser, username]);
+
   if (isLoading) {
     return (
       <Card className="flex flex-col items-center justify-center p-6">

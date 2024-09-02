@@ -7,6 +7,7 @@ import { connectDB } from "../src/db/connect.js";
 // routes
 import authRoute from "../src/routes/auth.route.js";
 import userRoute from "../src/routes/users.route.js";
+import postRoute from "../src/routes/post.route.js";
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,7 @@ const API = "/api";
 
 app.use(`${API}/auth`, authRoute);
 app.use(`${API}/users`, userRoute);
+app.use(`${API}/post`, postRoute);
 
 const PORT = process.env.PORT ?? 3000;
 app.listen(PORT, () => {

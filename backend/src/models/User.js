@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
     },
     lastLogin: {
       type: Date,
-      default: Date.now(),
+      default: Date.now,
     },
     isVerified: {
       type: Boolean,
@@ -36,6 +36,16 @@ const userSchema = new mongoose.Schema(
     resetPasswordExpiresAt: Date,
     verificationToken: String,
     verificationTokenExpiresAt: Date,
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    postCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

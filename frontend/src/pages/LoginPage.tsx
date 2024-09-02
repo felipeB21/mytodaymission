@@ -37,7 +37,7 @@ export default function LoginPage() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
-    <div className="flex items-center justify-center h-[65dvh]">
+    <div className="flex items-center justify-center h-screen">
       <div className="2xl:w-[20dvw] w-[30dvw] flex flex-col gap-5">
         <div className="flex gap-4">
           <a href="/">

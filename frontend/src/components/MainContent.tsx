@@ -21,15 +21,21 @@ const MainContent = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {!isAuthPage && <Header />}
-      <div className="flex-grow mt-20 max-w-6xl mx-auto px-4 w-full">
+      <div
+        className={`flex-grow mt-20 max-w-6xl mx-auto px-4 w-full ${
+          isAuthPage ? "mt-0" : ""
+        }`}
+      >
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-[30%] mb-4 md:mb-0">
-            <Navbar
-              currentUser={currentUser}
-              isAuthenticated={isAuthenticated}
-            />
-          </div>
-          <div className="w-full md:w-[70%]">
+          {!isAuthPage && (
+            <div className="w-full md:w-[30%] mb-4 md:mb-0">
+              <Navbar
+                currentUser={currentUser}
+                isAuthenticated={isAuthenticated}
+              />
+            </div>
+          )}
+          <div className={`w-full ${!isAuthPage ? "md:w-[70%]" : ""}`}>
             <App />
           </div>
         </div>
