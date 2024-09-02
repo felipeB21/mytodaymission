@@ -1,11 +1,38 @@
 import { create } from "zustand";
 import axios from "axios";
 
+interface Followers {
+  username: string;
+  avatar?: string;
+}
+
+interface Likes {
+  username: string;
+  avatar?: string;
+}
+
+interface Comments {
+  _id: string;
+  text: string;
+}
+
+interface Posts {
+  _id: string;
+  videoUrl: string;
+  description: string;
+  likes: Likes;
+  comments: Comments;
+}
+
 interface User {
   email: string;
   name: string;
   username: string;
   avatar?: string;
+  followers: Followers;
+  followerCount: number;
+  postCount: number;
+  posts: Posts[];
 }
 
 interface AuthState {
@@ -28,6 +55,7 @@ interface AuthActions {
   me: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   findUser: (username: string) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 type AuthStore = AuthState & AuthActions;
@@ -120,6 +148,29 @@ export const useAuthStore = create<AuthStore>((set) => ({
           isCheckingAuth: false,
           isAuthenticated: false,
         });
+      }
+    }
+  },
+
+  logout: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      await axios.post(`${API_AUTH_URL}/logout`);
+      set({
+        currentUser: null,
+        viewedUser: null,
+        isAuthenticated: false,
+        isLoading: false,
+        error: null,
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        set({
+          error: error?.response?.data?.message || "Error logging out",
+          isLoading: false,
+        });
+      } else {
+        set({ error: "An unexpected error occurred", isLoading: false });
       }
     }
   },

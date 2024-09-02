@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import {
   Button,
@@ -8,14 +8,31 @@ import {
   DropdownItem,
   Avatar,
   Skeleton,
+  Spinner,
 } from "@nextui-org/react";
+import toast from "react-hot-toast";
 
 export default function Session() {
-  const { me, isAuthenticated, currentUser, isCheckingAuth } = useAuthStore();
+  const { me, isAuthenticated, currentUser, isCheckingAuth, logout } =
+    useAuthStore();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
     me();
   }, [me]);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+      toast.success("Logged out successfully");
+    } catch (error) {
+      toast.error("There was an error logging out. Please try again.");
+      console.log(error);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
   if (isCheckingAuth) {
     return (
@@ -40,15 +57,26 @@ export default function Session() {
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem
               key="settings"
-              as="a"
               href={`/profile/${currentUser?.username}`}
             >
               My Profile
             </DropdownItem>
             <DropdownItem key="configurations">Configurations</DropdownItem>
             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
-              Log Out
+            <DropdownItem
+              key="logout"
+              className="text-danger"
+              color="danger"
+              onClick={handleLogout}
+            >
+              {isLoggingOut ? (
+                <>
+                  <Spinner size="sm" color="danger" />
+                  <span className="ml-2">Logging out...</span>
+                </>
+              ) : (
+                "Log Out"
+              )}
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

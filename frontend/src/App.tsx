@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import HeroPage from "./components/HeroPage";
+import ReelsPage from "./components/ReelsPage";
 import PasswordReset from "./pages/PasswordReset";
 import { Toaster } from "react-hot-toast";
 import {
@@ -17,7 +17,7 @@ function App() {
     <main>
       <Toaster position="bottom-right" />
       <Routes>
-        <Route path="/" element={<HeroPage />} />
+        <Route path="/" element={<ReelsPage />} />
         <Route
           path="/new/post"
           element={

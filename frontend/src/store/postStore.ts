@@ -2,13 +2,13 @@ import { create } from "zustand";
 import axios from "axios";
 
 interface Post {
-  video: string;
+  videoUrl: string;
   description: string;
 }
 
 interface PostState {
-  posts: Post[]; // Updated to store a list of posts
-  post: Post | null; // Individual post
+  posts: Post[];
+  post: Post | null;
   error: string | null;
   isLoading: boolean;
 }
